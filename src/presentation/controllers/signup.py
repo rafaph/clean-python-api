@@ -1,9 +1,11 @@
 from src.presentation.errors import MissingParamError, InvalidParamError
-from src.presentation.helpers import bad_request
-from src.presentation.helpers.http_helpers import server_error
-from src.presentation.protocols.controller import Controller
-from src.presentation.protocols.email_validator import EmailValidator
-from src.presentation.protocols.http import HttpRequest, HttpResponse
+from src.presentation.helpers import bad_request, server_error
+from src.presentation.protocols import (
+    Controller,
+    EmailValidator,
+    HttpRequest,
+    HttpResponse,
+)
 
 
 class SignUpController(Controller):

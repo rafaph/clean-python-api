@@ -3,9 +3,9 @@ SignUp Controller
 """
 from typing import TypedDict
 
-from src.presentation.controllers.signup import SignUpController
+from src.presentation.controllers import SignUpController
 from src.presentation.errors import MissingParamError, InvalidParamError, ServerError
-from src.presentation.protocols.email_validator import EmailValidator
+from src.presentation.protocols import EmailValidator
 
 
 class SutTypes(TypedDict):
