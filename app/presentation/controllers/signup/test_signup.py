@@ -9,6 +9,7 @@ from app.presentation.controllers.signup.protocols import (
     AccountModel,
     AddAccountModel,
     AddAccount,
+    HttpRequest,
 )
 from app.presentation.errors import MissingParamError, InvalidParamError, ServerError
 
@@ -253,3 +254,25 @@ def test_return_500_add_account_throws(mocker):
     http_response = sut.handle(http_request)
     assert http_response["status_code"] == 500
     assert http_response["body"] == ServerError()
+
+
+def test_return_200_valid_data():
+    sut = make_sut()["sut"]
+    http_request = HttpRequest(
+        body={
+            "name": "valid_name",
+            "email": "valid_email@mail.com",
+            "password": "valid_password",
+            "passwordConfirmation": "valid_password",
+        }
+    )
+
+    http_response = sut.handle(http_request)
+
+    assert http_response["status_code"] == 200
+    assert http_response["body"] == AccountModel(
+        id="valid_id",
+        name="valid_name",
+        email="valid_email@mail.com",
+        password="valid_password",
+    )
