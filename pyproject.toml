@@ -8,7 +8,7 @@ authors = ["Raphael Castro"]
 python = "^3.9"
 
 [tool.poetry.dev-dependencies]
-commitizen = "^2.16.0"
+commitizen = "^2.17.0"
 pre-commit = "^2.11.1"
 black = {extras = ["d"], version = "^20.8b1"}
 isort = "^5.8.0"
@@ -22,7 +22,7 @@ pytest-picked = "^0.4.6"
 pytest-watch = "^4.2.0"
 
 [tool.black]
-target-version = ['py38']
+target-version = ["py38"]
 #exclude = '''
 #/(
 #  | migrations

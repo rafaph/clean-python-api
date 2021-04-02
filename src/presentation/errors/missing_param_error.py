@@ -3,5 +3,7 @@ class MissingParamError(Exception):
         self.param_name = param_name
         super().__init__(f"Missing param {param_name}")
 
-    def __eq__(self, instance):
-        return instance.param_name == self.param_name
+    def __eq__(self, other) -> bool:
+        if isinstance(other, self.__class__):
+            return other.param_name == self.param_name
+        return False

@@ -5,11 +5,15 @@ from src.presentation.controllers.signup import SignUpController
 from src.presentation.errors import MissingParamError
 
 
+def makeSut() -> SignUpController:
+    return SignUpController()
+
+
 def test_return_400_no_name():
     """
     Should return 400 if no name is provided
     """
-    sut = SignUpController()
+    sut = makeSut()
     httpRequest = {
         "body": {
             "email": "any_email@mail.com",
@@ -26,7 +30,7 @@ def test_return_400_no_email():
     """
     Should return 400 if no email is provided
     """
-    sut = SignUpController()
+    sut = makeSut()
     httpRequest = {
         "body": {
             "name": "any_name",
@@ -43,7 +47,7 @@ def test_return_400_no_password():
     """
     Should return 400 if no password is provided
     """
-    sut = SignUpController()
+    sut = makeSut()
     httpRequest = {
         "body": {
             "name": "any_name",
@@ -60,7 +64,7 @@ def test_return_400_no_password_confirmation():
     """
     Should return 400 if no passwordConfirmation is provided
     """
-    sut = SignUpController()
+    sut = makeSut()
     httpRequest = {
         "body": {
             "name": "any_name",
