@@ -79,6 +79,24 @@ def test_return_400_no_password():
     assert http_response["body"] == MissingParamError("password")
 
 
+def test_return_400_password_confirmation_fail():
+    """
+    Should return 400 if password confirmation fails
+    """
+    sut = make_sut()["sut"]
+    http_request = {
+        "body": {
+            "name": "any_name",
+            "email": "any_email@mail.com",
+            "password": "invalid_passowrd",
+            "passwordConfirmation": "any_password",
+        }
+    }
+    http_response = sut.handle(http_request)
+    assert http_response["status_code"] == 400
+    assert http_response["body"] == InvalidParamError("passwordConfirmation")
+
+
 def test_return_400_no_password_confirmation():
     """
     Should return 400 if no passwordConfirmation is provided
