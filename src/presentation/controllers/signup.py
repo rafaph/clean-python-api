@@ -5,7 +5,7 @@ from src.presentation.helpers import bad_request
 
 class SignUpController:
     def handle(self, httpRequest: HttpRequest) -> HttpResponse:
-        required_fields = ["name", "email", "password"]
+        required_fields = ["name", "email", "password", "passwordConfirmation"]
 
         for field in required_fields:
             if field not in httpRequest["body"]:
