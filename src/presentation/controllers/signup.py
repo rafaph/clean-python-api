@@ -20,13 +20,15 @@ class SignUpController(Controller):
                 if field not in http_resquest["body"]:
                     return bad_request(MissingParamError(field))
 
-            if (
-                http_resquest["body"]["password"]
-                != http_resquest["body"]["passwordConfirmation"]
-            ):
+            email, password, password_confirmation = (
+                http_resquest["body"]["email"],
+                http_resquest["body"]["password"],
+                http_resquest["body"]["passwordConfirmation"],
+            )
+            if password != password_confirmation:
                 return bad_request(InvalidParamError("passwordConfirmation"))
 
-            is_valid = self._email_validator.is_valid(http_resquest["body"]["email"])
+            is_valid = self._email_validator.is_valid(email)
             if not is_valid:
                 return bad_request(InvalidParamError("email"))
         except:
