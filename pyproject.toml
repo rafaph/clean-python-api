@@ -39,7 +39,7 @@ line_length = 88
 [tool.pytest.ini_options]
 # addopts = '--cov=clean-code-api --cov-report term'
 testpaths = [
-    "tests"
+  "src"
 ]
 
 [build-system]
