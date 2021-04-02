@@ -21,14 +21,6 @@ def make_email_validator() -> EmailValidator:
     return EmailValidatorStub()
 
 
-def make_email_validator_with_error() -> EmailValidator:
-    class EmailValidatorStub(EmailValidator):
-        def is_valid(self, email: str) -> bool:
-            raise Exception()
-
-    return EmailValidatorStub()
-
-
 def make_sut() -> SutTypes:
     email_validator_stub = make_email_validator()
     sut = SignUpController(email_validator_stub)
@@ -145,13 +137,18 @@ def test_call_email_validator_correct(mocker):
     spy.assert_called_with(http_request["body"]["email"])
 
 
-def test_return_500_email_validator_throws():
+def test_return_500_email_validator_throws(mocker):
     """
-    Should return 400 if an invalid email is provided
+    Should return 500 if EmailValidator throws
     """
 
-    email_validator = make_email_validator_with_error()
-    sut = SignUpController(email_validator)
+    def custom_is_valid(email: str):
+        raise Exception()
+
+    sut_items = make_sut()
+    sut = sut_items["sut"]
+    email_validator = sut_items["email_validator"]
+    mocker.patch.object(email_validator, "is_valid", custom_is_valid)
     http_request = {
         "body": {
             "name": "any_name",
