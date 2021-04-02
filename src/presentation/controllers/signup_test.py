@@ -13,12 +13,24 @@ class SutTypes(TypedDict):
     sut: SignUpController
 
 
-def makeSut() -> SutTypes:
+def make_email_validator() -> EmailValidator:
     class EmailValidatorStub(EmailValidator):
         def is_valid(self, email: str) -> bool:
             return True
 
-    email_validator_stub = EmailValidatorStub()
+    return EmailValidatorStub()
+
+
+def make_email_validator_with_error() -> EmailValidator:
+    class EmailValidatorStub(EmailValidator):
+        def is_valid(self, email: str) -> bool:
+            raise Exception()
+
+    return EmailValidatorStub()
+
+
+def make_sut() -> SutTypes:
+    email_validator_stub = make_email_validator()
     sut = SignUpController(email_validator_stub)
 
     return {"sut": sut, "email_validator": email_validator_stub}
@@ -28,7 +40,7 @@ def test_return_400_no_name():
     """
     Should return 400 if no name is provided
     """
-    sut = makeSut()["sut"]
+    sut = make_sut()["sut"]
     http_request = {
         "body": {
             "email": "any_email@mail.com",
@@ -45,7 +57,7 @@ def test_return_400_no_email():
     """
     Should return 400 if no email is provided
     """
-    sut = makeSut()["sut"]
+    sut = make_sut()["sut"]
     http_request = {
         "body": {
             "name": "any_name",
@@ -62,7 +74,7 @@ def test_return_400_no_password():
     """
     Should return 400 if no password is provided
     """
-    sut = makeSut()["sut"]
+    sut = make_sut()["sut"]
     http_request = {
         "body": {
             "name": "any_name",
@@ -79,7 +91,7 @@ def test_return_400_no_password_confirmation():
     """
     Should return 400 if no passwordConfirmation is provided
     """
-    sut = makeSut()["sut"]
+    sut = make_sut()["sut"]
     http_request = {
         "body": {
             "name": "any_name",
@@ -96,7 +108,7 @@ def test_return_400_invalid_email(mocker):
     """
     Should return 400 if an invalid email is provided
     """
-    sut_values = makeSut()
+    sut_values = make_sut()
     sut = sut_values["sut"]
     email_validator = sut_values["email_validator"]
     mocker.patch.object(email_validator, "is_valid", return_value=False)
@@ -117,7 +129,7 @@ def test_call_email_validator_correct(mocker):
     """
     Should call EmailValidator with correct email
     """
-    sut_values = makeSut()
+    sut_values = make_sut()
     sut = sut_values["sut"]
     email_validator = sut_values["email_validator"]
     spy = mocker.patch.object(email_validator, "is_valid")
@@ -133,18 +145,13 @@ def test_call_email_validator_correct(mocker):
     spy.assert_called_with(http_request["body"]["email"])
 
 
-def test_return_500_email_validator_throws(mocker):
+def test_return_500_email_validator_throws():
     """
     Should return 400 if an invalid email is provided
     """
 
-    def is_valid(email: str) -> bool:
-        raise ServerError()
-
-    sut_values = makeSut()
-    sut = sut_values["sut"]
-    email_validator = sut_values["email_validator"]
-    mocker.patch.object(email_validator, "is_valid", is_valid)
+    email_validator = make_email_validator_with_error()
+    sut = SignUpController(email_validator)
     http_request = {
         "body": {
             "name": "any_name",
