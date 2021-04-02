@@ -1,3 +1,4 @@
 from .missing_param_error import MissingParamError
+from .invalid_param_error import InvalidParamError
 
-__all__ = ["MissingParamError"]
+__all__ = ["MissingParamError", "InvalidParamError"]

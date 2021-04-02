@@ -20,6 +20,7 @@ pytest-icdiff = "^0.5"
 pytest-testmon = "^1.1.0"
 pytest-picked = "^0.4.6"
 pytest-watch = "^4.2.0"
+pytest-mock = "^3.5.1"
 
 [tool.black]
 target-version = ["py38"]
