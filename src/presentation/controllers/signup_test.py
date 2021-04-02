@@ -3,14 +3,11 @@ SignUp Controller
 """
 from typing import TypedDict
 
+from src.domain.models.account import AccountModel
+from src.domain.usecases.add_account import AddAccount, AddAccountModel
 from src.presentation.controllers import SignUpController
 from src.presentation.errors import MissingParamError, InvalidParamError, ServerError
 from src.presentation.protocols import EmailValidator
-
-
-class SutTypes(TypedDict):
-    email_validator: EmailValidator
-    sut: SignUpController
 
 
 def make_email_validator() -> EmailValidator:
@@ -21,11 +18,35 @@ def make_email_validator() -> EmailValidator:
     return EmailValidatorStub()
 
 
+def make_add_account() -> AddAccount:
+    class AddAccountStub(AddAccount):
+        def add(self, account: AddAccountModel) -> AccountModel:
+            return AccountModel(
+                id="valid_id",
+                name="valid_name",
+                email="valid_email@mail.com",
+                password="valid_password",
+            )
+
+    return AddAccountStub()
+
+
+class SutTypes(TypedDict):
+    email_validator: EmailValidator
+    sut: SignUpController
+    add_account: AddAccount
+
+
 def make_sut() -> SutTypes:
     email_validator_stub = make_email_validator()
-    sut = SignUpController(email_validator_stub)
+    add_account_stub = make_add_account()
+    sut = SignUpController(email_validator_stub, add_account_stub)
 
-    return {"sut": sut, "email_validator": email_validator_stub}
+    return {
+        "sut": sut,
+        "email_validator": email_validator_stub,
+        "add_account": add_account_stub,
+    }
 
 
 def test_return_400_no_name():
@@ -178,3 +199,29 @@ def test_return_500_email_validator_throws(mocker):
     http_response = sut.handle(http_request)
     assert http_response["status_code"] == 500
     assert http_response["body"] == ServerError()
+
+
+def test_call_add_acount_correct_values(mocker):
+    """
+    Should call AddAccount with correct values
+    """
+    sut_values = make_sut()
+    sut = sut_values["sut"]
+    add_account_stub = sut_values["add_account"]
+    add_spy = mocker.patch.object(add_account_stub, "add")
+    http_request = {
+        "body": {
+            "name": "any_name",
+            "email": "invalid_email@mail.com",
+            "password": "any_password",
+            "passwordConfirmation": "any_password",
+        }
+    }
+    sut.handle(http_request)
+    add_spy.assert_called_once_with(
+        {
+            "name": "any_name",
+            "email": "invalid_email@mail.com",
+            "password": "any_password",
+        }
+    )
