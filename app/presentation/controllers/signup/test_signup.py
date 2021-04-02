@@ -3,11 +3,14 @@ SignUp Controller
 """
 from typing import TypedDict
 
-from src.domain.models.account import AccountModel
-from src.domain.usecases.add_account import AddAccount, AddAccountModel
-from src.presentation.controllers import SignUpController
-from src.presentation.errors import MissingParamError, InvalidParamError, ServerError
-from src.presentation.protocols import EmailValidator
+from app.presentation.controllers.signup.controller import SignUpController
+from app.presentation.controllers.signup.protocols import (
+    EmailValidator,
+    AccountModel,
+    AddAccountModel,
+    AddAccount,
+)
+from app.presentation.errors import MissingParamError, InvalidParamError, ServerError
 
 
 def make_email_validator() -> EmailValidator:

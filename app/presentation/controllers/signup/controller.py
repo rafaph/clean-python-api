@@ -1,11 +1,12 @@
-from src.domain.usecases.add_account import AddAccount, AddAccountModel
-from src.presentation.errors import MissingParamError, InvalidParamError
-from src.presentation.helpers import bad_request, server_error
-from src.presentation.protocols import (
+from app.presentation.errors import MissingParamError, InvalidParamError
+from app.presentation.helpers import bad_request, server_error
+from app.presentation.controllers.signup.protocols import (
     Controller,
     EmailValidator,
     HttpRequest,
     HttpResponse,
+    AddAccount,
+    AddAccountModel,
 )
 
 
@@ -41,5 +42,5 @@ class SignUpController(Controller):
                     email=email,
                 )
             )
-        except:
+        except Exception:
             return server_error()
