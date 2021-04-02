@@ -1,7 +1,7 @@
 """
 SignUp Controller
 """
-from src.presentation.controllers.signup import SignUpController
+from src.presentation.controllers.signup import SignUpController, ValidationError
 
 
 def test_return_400():
@@ -18,3 +18,4 @@ def test_return_400():
     }
     httpResponse = sut.handle(httpRequest)
     assert httpResponse["statusCode"] == 400
+    assert httpResponse["body"] == ValidationError("Missing param: name")
