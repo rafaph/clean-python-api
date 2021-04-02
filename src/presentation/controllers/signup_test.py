@@ -111,3 +111,23 @@ def test_return_400_invalid_email(mocker):
     http_response = sut.handle(http_request)
     assert http_response["status_code"] == 400
     assert http_response["body"] == InvalidParamError("email")
+
+
+def test_call_email_validator_correct(mocker):
+    """
+    Should call EmailValidator with correct email
+    """
+    sut_values = makeSut()
+    sut = sut_values["sut"]
+    email_validator = sut_values["email_validator"]
+    spy = mocker.patch.object(email_validator, "is_valid")
+    http_request = {
+        "body": {
+            "name": "any_name",
+            "email": "invalid_email@mail.com",
+            "password": "any_password",
+            "passwordConfirmation": "any_password",
+        }
+    }
+    sut.handle(http_request)
+    spy.assert_called_with(http_request["body"]["email"])
