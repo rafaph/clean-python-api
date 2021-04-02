@@ -5,8 +5,8 @@ from src.presentation.helpers import bad_request
 
 class SignUpController:
     def handle(self, httpRequest: HttpRequest) -> HttpResponse:
-        if "name" not in httpRequest["body"]:
-            return bad_request(MissingParamError("name"))
+        required_fields = ["name", "email"]
 
-        if "email" not in httpRequest["body"]:
-            return bad_request(MissingParamError("email"))
+        for field in required_fields:
+            if field not in httpRequest["body"]:
+                return bad_request(MissingParamError(field))
