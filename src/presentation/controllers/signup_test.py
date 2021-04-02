@@ -4,7 +4,7 @@ SignUp Controller
 from typing import TypedDict
 
 from src.presentation.controllers.signup import SignUpController
-from src.presentation.errors import MissingParamError, InvalidParamError
+from src.presentation.errors import MissingParamError, InvalidParamError, ServerError
 from src.presentation.protocols.email_validator import EmailValidator
 
 
@@ -131,3 +131,28 @@ def test_call_email_validator_correct(mocker):
     }
     sut.handle(http_request)
     spy.assert_called_with(http_request["body"]["email"])
+
+
+def test_return_500_email_validator_throws(mocker):
+    """
+    Should return 400 if an invalid email is provided
+    """
+
+    def is_valid(email: str) -> bool:
+        raise ServerError()
+
+    sut_values = makeSut()
+    sut = sut_values["sut"]
+    email_validator = sut_values["email_validator"]
+    mocker.patch.object(email_validator, "is_valid", is_valid)
+    http_request = {
+        "body": {
+            "name": "any_name",
+            "email": "any_email@mail.com",
+            "password": "any_password",
+            "passwordConfirmation": "any_password",
+        }
+    }
+    http_response = sut.handle(http_request)
+    assert http_response["status_code"] == 500
+    assert http_response["body"] == ServerError()
