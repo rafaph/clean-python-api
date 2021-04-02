@@ -228,3 +228,28 @@ def test_call_add_acount_correct_values(mocker):
             "password": "any_password",
         }
     )
+
+
+def test_return_500_add_account_throws(mocker):
+    """
+    Should return 500 if AddAccount throws
+    """
+
+    def custom_add():
+        raise Exception()
+
+    sut_items = make_sut()
+    sut = sut_items["sut"]
+    add_account_stub = sut_items["add_account"]
+    mocker.patch.object(add_account_stub, "add", custom_add)
+    http_request = {
+        "body": {
+            "name": "any_name",
+            "email": "any_email@mail.com",
+            "password": "any_password",
+            "passwordConfirmation": "any_password",
+        }
+    }
+    http_response = sut.handle(http_request)
+    assert http_response["status_code"] == 500
+    assert http_response["body"] == ServerError()
