@@ -1,4 +1,13 @@
+from app.data.protocols.add_account_repository import AddAccountRepository
 from app.data.protocols.encrypter import Encrypter
-from app.domain.usecases.add_account import AddAccountModel
+from app.domain.models.account import AccountModel
+from app.domain.usecases.add_account import AddAccountModel, AddAccount
 
-__all__ = ["Encrypter", "AddAccountModel"]
+
+__all__ = [
+    "Encrypter",
+    "AddAccountModel",
+    "AccountModel",
+    "AddAccountRepository",
+    "AddAccount",
+]

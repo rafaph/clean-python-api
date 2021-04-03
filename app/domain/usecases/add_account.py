@@ -1,11 +1,11 @@
 import abc
-from dataclasses import dataclass
+
+from pydantic import BaseModel
 
 from app.domain.models.account import AccountModel
 
 
-@dataclass
-class AddAccountModel:
+class AddAccountModel(BaseModel):
     name: str
     email: str
     password: str
@@ -13,7 +13,7 @@ class AddAccountModel:
 
 class AddAccount(abc.ABC):
     @abc.abstractmethod
-    def add(self, account: AddAccountModel) -> AccountModel:
+    def add(self, account_data: AddAccountModel) -> AccountModel:
         raise NotImplementedError(
             "Every AddAccount must implement a add method."
         )  # pragma: no cover
