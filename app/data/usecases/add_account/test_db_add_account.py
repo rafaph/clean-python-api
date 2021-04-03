@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 from unittest import TestCase, mock
 
-from app.domain.usecases.add_account import AddAccountModel
 from .db_add_account import DbAddAccount
-from ...protocols.encrypter import Encrypter
+from .db_add_account_protocols import Encrypter, AddAccountModel
 
 
 def make_encrypter() -> Encrypter:
