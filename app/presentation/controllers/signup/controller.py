@@ -43,5 +43,6 @@ class SignUpController(Controller):
                 )
             )
             return ok(data=account)
-        except Exception:
+        except Exception as error:
+            print(error)
             return server_error()

@@ -39,7 +39,7 @@ line_length = 88
 
 [tool.pytest.ini_options]
 testpaths = ["app"]
-addopts = '--pspec -rx'
+addopts = '--pspec -rx --tb=short'
 markers = ['integration', 'unit']
 
 [build-system]

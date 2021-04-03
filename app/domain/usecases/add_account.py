@@ -14,7 +14,9 @@ class AddAccountModel:
 class AddAccount(abc.ABC):
     @abc.abstractmethod
     def add(self, account: AddAccountModel) -> AccountModel:
-        raise NotImplementedError("Every AddAccount must implement a add method.")
+        raise NotImplementedError(
+            "Every AddAccount must implement a add method."
+        )  # pragma: no cover
 
 
 __all__ = ["AddAccountModel", "AddAccount"]

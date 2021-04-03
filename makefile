@@ -11,7 +11,7 @@ test_watch:
 
 .PHONY: test_coverage
 test_coverage:
-	$(BIN)/pytest --cov=app  --cov-report term
+	$(BIN)/pytest --cov=app --cov-config=.coveragerc --cov-report term
 
 .PHONY: test_unit
 test_unit:
