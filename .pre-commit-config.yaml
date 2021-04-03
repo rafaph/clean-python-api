@@ -4,21 +4,45 @@ repos:
     rev: v2.16.0
     hooks:
       - id: commitizen
-        stages: [commit-msg]
-  - repo: https://github.com/psf/black
-    rev: 20.8b1
+        stages:
+          - commit-msg
+  - repo: local
     hooks:
-    - id: black
-      language_version: python3.8
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.0
+      - id: tests_staged
+        name: pytest staged
+        entry: make test_staged
+        language: system
+        types:
+          - python
+        stages:
+          - commit
+  - repo: local
     hooks:
-      - id: flake8
-#  - repo: local
-#    hooks:
-#      - id: pytest
-#        name: pytest
-#        entry: pytest
-#        language: system
-#        pass_filenames: false
-#        always_run: true
+      - id: tests
+        name: pytest
+        entry: make test
+        language: system
+        types:
+          - python
+        stages:
+          - push
+  - repo: local
+    hooks:
+      - id: format
+        name: black
+        entry: make black
+        language: system
+        types:
+          - python
+        stages:
+          - commit
+  - repo: local
+    hooks:
+      - id: lint
+        name: flake8
+        entry: make flake8
+        language: system
+        types:
+          - python
+        stages:
+          - commit

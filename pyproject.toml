@@ -18,16 +18,18 @@ pytest = "^6.2.2"
 pytest-cov = "^2.11.1"
 pytest-pspec = "^0.0.4"
 pytest-watch = "^4.2.0"
+pytest-picked = "^0.4.6"
+pytest-custom-exit-code = "^0.3.0"
 
 [tool.black]
 target-version = ["py38"]
-#exclude = '''
-#/(
-#  | migrations
-#  | coverage
-#  | .library
-#)/
-#'''
+exclude = '''
+/(
+  | .vscode
+  | .pytest_cache
+  | htmlcov
+)/
+'''
 
 [tool.isort]
 multi_line_output = 3

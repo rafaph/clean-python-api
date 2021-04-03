@@ -5,6 +5,10 @@ BIN = $(VIRTUAL_ENV)/bin
 test:
 	$(BIN)/pytest
 
+.PHONY: test_staged
+test_staged:
+	$(BIN)/pytest --picked --suppress-no-test-exit-code
+
 .PHONY: test_watch
 test_watch:
 	$(BIN)/ptw -- --last-failed --new-first  
@@ -20,3 +24,13 @@ test_unit:
 .PHONY: test_integration
 test_integration:
 	$(BIN)/pytest -m integration
+
+.PHONY: black
+black:
+	$(BIN)/black --version
+	$(BIN)/black .
+
+.PHONY: flake8
+flake8:
+	$(BIN)/flake8 --version
+	$(BIN)/flake8 .
