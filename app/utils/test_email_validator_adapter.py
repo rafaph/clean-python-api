@@ -35,3 +35,11 @@ class EmailValidatorAdapterTests(TestCase):
         sut = EmailValidatorAdapter()
         is_valid = sut.is_valid("valid_email@mail.com")
         self.assertTrue(is_valid)
+
+    def test_call_validator_with_correct_validator(self):
+        """
+        Should call validator with correct email
+        """
+        sut = EmailValidatorAdapter()
+        sut.is_valid("valid_email@mail.com")
+        self.is_email.assert_called_once_with("valid_email@mail.com")
