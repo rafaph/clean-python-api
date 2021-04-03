@@ -151,8 +151,7 @@ class DbAddAccountTests(TestCase):
         Should return an account on success
         """
 
-        sut_types = make_sut()
-        sut = sut_types.sut
+        sut = make_sut().sut
 
         account = sut.add(
             AddAccountModel(
