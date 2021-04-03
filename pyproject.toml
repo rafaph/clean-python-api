@@ -23,13 +23,13 @@ pytest-custom-exit-code = "^0.3.0"
 
 [tool.black]
 target-version = ["py38"]
-exclude = '''
-/(
-  | .vscode
-  | .pytest_cache
-  | htmlcov
-)/
-'''
+#exclude = '''
+#/(
+#  | .vscode
+#  | .pytest_cache
+#  | htmlcov
+#)/
+#'''
 
 [tool.isort]
 multi_line_output = 3
