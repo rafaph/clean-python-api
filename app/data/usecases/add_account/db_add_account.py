@@ -15,6 +15,8 @@ class DbAddAccount(AddAccount):
         self._add_account_repository = add_account_repository
 
     def add(self, account_data: AddAccountModel) -> AccountModel:
-        hashed_password = self._encrypter.encrypt(account_data.password)
-        account_data = account_data.copy(update={"password": hashed_password})
-        return self._add_account_repository.add(account_data)
+        return self._add_account_repository.add(
+            account_data.copy(
+                update={"password": self._encrypter.encrypt(account_data.password)}
+            )
+        )
