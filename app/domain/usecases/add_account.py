@@ -1,10 +1,11 @@
 import abc
-from typing import TypedDict
+from dataclasses import dataclass
 
 from app.domain.models.account import AccountModel
 
 
-class AddAccountModel(TypedDict):
+@dataclass
+class AddAccountModel:
     name: str
     email: str
     password: str

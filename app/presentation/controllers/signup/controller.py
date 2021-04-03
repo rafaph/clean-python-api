@@ -1,13 +1,15 @@
-from app.presentation.errors import MissingParamError, InvalidParamError
-from app.presentation.helpers import bad_request, server_error
+from http import HTTPStatus
+
 from app.presentation.controllers.signup.protocols import (
+    AddAccount,
+    AddAccountModel,
     Controller,
     EmailValidator,
     HttpRequest,
     HttpResponse,
-    AddAccount,
-    AddAccountModel,
 )
+from app.presentation.errors import InvalidParamError, MissingParamError
+from app.presentation.helpers import bad_request, server_error
 
 
 class SignUpController(Controller):
@@ -20,13 +22,13 @@ class SignUpController(Controller):
             required_fields = ["name", "email", "password", "passwordConfirmation"]
 
             for field in required_fields:
-                if field not in http_resquest["body"]:
+                if field not in http_resquest.body:
                     return bad_request(MissingParamError(field))
 
             email, password, password_confirmation = (
-                http_resquest["body"]["email"],
-                http_resquest["body"]["password"],
-                http_resquest["body"]["passwordConfirmation"],
+                http_resquest.body["email"],
+                http_resquest.body["password"],
+                http_resquest.body["passwordConfirmation"],
             )
             if password != password_confirmation:
                 return bad_request(InvalidParamError("passwordConfirmation"))
@@ -35,12 +37,13 @@ class SignUpController(Controller):
             if not is_valid:
                 return bad_request(InvalidParamError("email"))
 
-            self._add_account.add(
+            account = self._add_account.add(
                 AddAccountModel(
-                    name=http_resquest["body"]["name"],
+                    name=http_resquest.body["name"],
                     password=password,
                     email=email,
                 )
             )
+            return HttpResponse(status=HTTPStatus.OK, body=account)
         except Exception:
             return server_error()

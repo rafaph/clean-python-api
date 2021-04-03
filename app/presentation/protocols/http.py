@@ -1,10 +1,13 @@
-from typing import TypedDict, Any
+from dataclasses import dataclass
+from typing import Any, Optional
 
 
-class HttpResponse(TypedDict):
-    status_code: int
+@dataclass
+class HttpResponse:
+    status: int
     body: Any
 
 
-class HttpRequest(TypedDict, total=False):
-    body: Any
+@dataclass
+class HttpRequest:
+    body: Optional[Any] = None
