@@ -9,7 +9,7 @@ from app.presentation.controllers.signup.protocols import (
     HttpResponse,
 )
 from app.presentation.errors import InvalidParamError, MissingParamError
-from app.presentation.helpers import bad_request, server_error
+from app.presentation.helpers import bad_request, server_error, ok
 
 
 class SignUpController(Controller):
@@ -44,6 +44,6 @@ class SignUpController(Controller):
                     email=email,
                 )
             )
-            return HttpResponse(status=HTTPStatus.OK, body=account)
+            return ok(data=account)
         except Exception:
             return server_error()
