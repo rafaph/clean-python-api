@@ -4,7 +4,6 @@ from unittest import mock, TestCase
 
 import pytest
 
-from app.presentation.controllers.signup.controller import SignUpController
 from app.presentation.controllers.signup.protocols import (
     EmailValidator,
     AccountModel,
@@ -13,6 +12,7 @@ from app.presentation.controllers.signup.protocols import (
     HttpRequest,
 )
 from app.presentation.errors import MissingParamError, InvalidParamError, ServerError
+from .controller import SignUpController
 
 
 def make_email_validator() -> EmailValidator:
