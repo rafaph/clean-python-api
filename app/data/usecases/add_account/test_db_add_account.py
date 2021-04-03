@@ -145,3 +145,28 @@ class DbAddAccountTests(TestCase):
                     password="valid_password",
                 )
             )
+
+    def test_return_an_account_on_success(self):
+        """
+        Should return an account on success
+        """
+
+        sut_types = make_sut()
+        sut = sut_types.sut
+
+        account = sut.add(
+            AddAccountModel(
+                name="valid_name",
+                email="valid_email@mail.com",
+                password="valid_password",
+            )
+        )
+        self.assertEqual(
+            account,
+            AccountModel(
+                id="valid_id",
+                name="valid_name",
+                email="valid_email@mail.com",
+                password="hashed_password",
+            ),
+        )
