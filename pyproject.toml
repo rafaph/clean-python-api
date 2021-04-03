@@ -17,6 +17,7 @@ flake8 = "^3.9.0"
 pytest = "^6.2.2"
 pytest-cov = "^2.11.1"
 pytest-pspec = "^0.0.4"
+pytest-watch = "^4.2.0"
 
 [tool.black]
 target-version = ["py38"]
@@ -38,7 +39,8 @@ line_length = 88
 
 [tool.pytest.ini_options]
 testpaths = ["app"]
-addopts = '--pspec' # --cov=app --cov-report term'
+addopts = '--pspec -rx'
+markers = ['integration', 'unit']
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

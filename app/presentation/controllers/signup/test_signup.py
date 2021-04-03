@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from http import HTTPStatus
 from unittest import mock
 
+import pytest
+
 from app.presentation.controllers.signup.controller import SignUpController
 from app.presentation.controllers.signup.protocols import (
     EmailValidator,
@@ -52,6 +54,7 @@ def make_sut() -> SutTypes:
     )
 
 
+@pytest.mark.unit
 class SignUpControllerTests(unittest.TestCase):
     """
     SignUpConstroller tests
