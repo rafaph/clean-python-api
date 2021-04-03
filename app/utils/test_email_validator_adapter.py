@@ -3,6 +3,10 @@ from unittest import TestCase, mock
 from app.utils.email_validator import EmailValidatorAdapter
 
 
+def make_sut() -> EmailValidatorAdapter:
+    return EmailValidatorAdapter()
+
+
 class EmailValidatorAdapterTests(TestCase):
     """
     EmailValidator Adapter
@@ -24,7 +28,7 @@ class EmailValidatorAdapterTests(TestCase):
         Should return false if validator returns false
         """
         self.is_email.return_value = False
-        sut = EmailValidatorAdapter()
+        sut = make_sut()
         is_valid = sut.is_valid("invalid_email@mail.com")
         self.assertFalse(is_valid)
 
@@ -32,7 +36,7 @@ class EmailValidatorAdapterTests(TestCase):
         """
         Should return true if validator returns true
         """
-        sut = EmailValidatorAdapter()
+        sut = make_sut()
         is_valid = sut.is_valid("valid_email@mail.com")
         self.assertTrue(is_valid)
 
@@ -40,6 +44,6 @@ class EmailValidatorAdapterTests(TestCase):
         """
         Should call validator with correct email
         """
-        sut = EmailValidatorAdapter()
+        sut = make_sut()
         sut.is_valid("valid_email@mail.com")
         self.is_email.assert_called_once_with("valid_email@mail.com")
