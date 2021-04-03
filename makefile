@@ -11,7 +11,7 @@ test_staged:
 
 .PHONY: test_watch
 test_watch:
-	$(BIN)/ptw -- --last-failed --new-first  
+	$(BIN)/ptw -- --new-first  
 
 .PHONY: test_coverage
 test_coverage:
