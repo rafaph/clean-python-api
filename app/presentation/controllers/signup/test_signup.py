@@ -192,7 +192,7 @@ class SignUpControllerTests(TestCase):
         Should return status 500 if EmailValidator throws
         """
 
-        def is_valid():
+        def is_valid(email: str):
             raise Exception()
 
         sut_types = make_sut()

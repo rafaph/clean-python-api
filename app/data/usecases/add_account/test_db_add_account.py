@@ -32,7 +32,8 @@ class DbAddAccountTests(TestCase):
     DbAddAccount Usecase
     """
 
-    def test_call_encrypter_with_correct_password(self):
+    @staticmethod
+    def test_call_encrypter_with_correct_password():
         """
         Should call Encrypter with correct password
         """
@@ -47,3 +48,23 @@ class DbAddAccountTests(TestCase):
         with mock.patch.object(encrypter_stub, "encrypt") as encrypt_spy:
             sut.add(account_data)
             encrypt_spy.assert_called_once_with("valid_password")
+
+    def test_throw_if_encrypter_throws(self):
+        """
+        Should throw if encrypter throws
+        """
+
+        def encrypt_mock(value: str):
+            raise Exception()
+
+        sut_types = make_sut()
+        sut, encrypter_stub = sut_types.sut, sut_types.encrypter_stub
+
+        account_data = AddAccountModel(
+            name="valid_name", email="valid_email@mail.com", password="valid_password"
+        )
+
+        with mock.patch.object(
+            encrypter_stub, "encrypt", encrypt_mock
+        ), self.assertRaises(Exception):
+            sut.add(account_data)
