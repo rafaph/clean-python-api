@@ -1,7 +1,6 @@
-import unittest
 from dataclasses import dataclass
 from http import HTTPStatus
-from unittest import mock
+from unittest import mock, TestCase
 
 import pytest
 
@@ -55,7 +54,7 @@ def make_sut() -> SutTypes:
 
 
 @pytest.mark.unit
-class SignUpControllerTests(unittest.TestCase):
+class SignUpControllerTests(TestCase):
     """
     SignUpConstroller tests
     """
