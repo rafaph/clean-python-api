@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 from app.presentation.controllers.signup.protocols import (
     AddAccount,
     AddAccountModel,
@@ -9,7 +7,7 @@ from app.presentation.controllers.signup.protocols import (
     HttpResponse,
 )
 from app.presentation.errors import InvalidParamError, MissingParamError
-from app.presentation.helpers import bad_request, server_error, ok
+from app.presentation.helpers.http_helpers import bad_request, server_error, ok
 
 
 class SignUpController(Controller):
