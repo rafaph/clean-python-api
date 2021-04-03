@@ -1,6 +1,6 @@
 from unittest import TestCase, mock
 
-from app.utils.email_validator import EmailValidatorAdapter
+from app.utils.email_validator_adapter import EmailValidatorAdapter
 
 
 def make_sut() -> EmailValidatorAdapter:
@@ -14,7 +14,9 @@ class EmailValidatorAdapterTests(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.is_email_patcher = mock.patch("app.utils.email_validator.validators.email")
+        cls.is_email_patcher = mock.patch(
+            "app.utils.email_validator_adapter.validators.email"
+        )
 
     def setUp(self) -> None:
         self.is_email = self.is_email_patcher.start()
