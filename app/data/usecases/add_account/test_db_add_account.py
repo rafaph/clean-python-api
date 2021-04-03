@@ -6,6 +6,14 @@ from .db_add_account import DbAddAccount
 from ...protocols.encrypter import Encrypter
 
 
+def make_encrypter() -> Encrypter:
+    class EncrypterStub(Encrypter):
+        def encrypt(self, value: str) -> str:
+            return "hashed_password"
+
+    return EncrypterStub()
+
+
 @dataclass
 class SutTypes:
     encrypter_stub: Encrypter
@@ -13,11 +21,7 @@ class SutTypes:
 
 
 def make_sut():
-    class EncrypterStub(Encrypter):
-        def encrypt(self, value: str) -> str:
-            return "hashed_password"
-
-    encrypter_stub = EncrypterStub()
+    encrypter_stub = make_encrypter()
     sut = DbAddAccount(encrypter_stub)
 
     return SutTypes(sut=sut, encrypter_stub=encrypter_stub)
