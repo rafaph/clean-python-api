@@ -120,3 +120,28 @@ class DbAddAccountTests(TestCase):
                     password="hashed_password",
                 )
             )
+
+    def test_throw_if_add_account_repository_throws(self):
+        """
+        Should throw if AddAccountRepository throws
+        """
+
+        def add_mock(account_data: AddAccountModel):
+            raise ValueError()
+
+        sut_types = make_sut()
+        sut, add_account_repository_stub = (
+            sut_types.sut,
+            sut_types.add_account_repository_stub,
+        )
+
+        with mock.patch.object(
+            add_account_repository_stub, "add", add_mock
+        ), self.assertRaises(ValueError):
+            sut.add(
+                AddAccountModel(
+                    name="valid_name",
+                    email="valid_email@mail.com",
+                    password="valid_password",
+                )
+            )
