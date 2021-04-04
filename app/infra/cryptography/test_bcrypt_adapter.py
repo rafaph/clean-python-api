@@ -2,7 +2,14 @@ from unittest import TestCase, mock
 
 import pytest
 
+from app.data.protocols.encrypter import Encrypter
 from .bcrypt_adapter import BcryptAdapter
+
+rounds = 12
+
+
+def make_sut() -> Encrypter:
+    return BcryptAdapter(rounds)
 
 
 @pytest.mark.unit
@@ -35,8 +42,7 @@ class BcryptAdapterTests(TestCase):
         """
         Should call bcrypt with correct values
         """
-        rounds = 12
-        sut = BcryptAdapter(rounds)
+        sut = make_sut()
         value = "any_value"
         sut.encrypt(value)
         self.gensalt_stub.assert_called_once_with(rounds)
@@ -45,8 +51,7 @@ class BcryptAdapterTests(TestCase):
         """
         Should call hashpw with correct values
         """
-        rounds = 12
-        sut = BcryptAdapter(rounds)
+        sut = make_sut()
         value = "any_value"
         sut.encrypt(value)
         self.hashpw_stub.assert_called_once_with(
@@ -57,8 +62,7 @@ class BcryptAdapterTests(TestCase):
         """
         Should returns a hash on success
         """
-        rounds = 12
-        sut = BcryptAdapter(rounds)
+        sut = make_sut()
         value = "any_value"
         hashed_value = sut.encrypt(value)
         self.assertEqual(hashed_value, "hash")
