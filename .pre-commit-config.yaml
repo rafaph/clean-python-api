@@ -12,6 +12,8 @@ repos:
         name: black
         entry: make black_check
         language: system
+        types:
+          - python
         stages:
           - commit
   - repo: local
@@ -20,6 +22,8 @@ repos:
         name: isort
         entry: make isort_check
         language: system
+        types:
+          - python
         stages:
           - commit
   - repo: local
@@ -28,6 +32,8 @@ repos:
         name: flake8
         entry: make flake8
         language: system
+        types:
+          - python
         stages:
           - commit
   - repo: local
