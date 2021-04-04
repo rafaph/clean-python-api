@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from pymongo import MongoClient
 from pymongo.collection import Collection
@@ -24,3 +24,9 @@ class MongoHelper:
     @classmethod
     def get_collection(cls, name: str) -> Collection:
         return cls.client[cls.db][name]
+
+    @staticmethod
+    def map(item: Dict[str, Any]) -> Dict[str, Any]:
+        new_item = item.copy()
+        new_item["id"] = str(new_item.pop("_id"))
+        return new_item
