@@ -1,9 +1,9 @@
 from .db_add_account_protocols import (
-    Encrypter,
-    AddAccountModel,
     AccountModel,
-    AddAccountRepository,
     AddAccount,
+    AddAccountModel,
+    AddAccountRepository,
+    Encrypter,
 )
 
 

@@ -5,10 +5,10 @@ import pytest
 
 from .db_add_account import DbAddAccount
 from .db_add_account_protocols import (
-    Encrypter,
-    AddAccountModel,
     AccountModel,
+    AddAccountModel,
     AddAccountRepository,
+    Encrypter,
 )
 
 

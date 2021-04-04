@@ -3,6 +3,7 @@ from unittest import TestCase, mock
 import pytest
 
 from app.data.protocols.encrypter import Encrypter
+
 from .bcrypt_adapter import BcryptAdapter
 
 rounds = 12

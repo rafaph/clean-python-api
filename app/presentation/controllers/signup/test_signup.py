@@ -1,17 +1,18 @@
 from dataclasses import dataclass
 from http import HTTPStatus
-from unittest import mock, TestCase
+from unittest import TestCase, mock
 
 import pytest
 
 from app.presentation.controllers.signup.protocols import (
-    EmailValidator,
     AccountModel,
-    AddAccountModel,
     AddAccount,
+    AddAccountModel,
+    EmailValidator,
     HttpRequest,
 )
-from app.presentation.errors import MissingParamError, InvalidParamError, ServerError
+from app.presentation.errors import InvalidParamError, MissingParamError, ServerError
+
 from .controller import SignUpController
 
 

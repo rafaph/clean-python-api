@@ -1,5 +1,6 @@
-from app.data.protocols.encrypter import Encrypter
 import bcrypt
+
+from app.data.protocols.encrypter import Encrypter
 
 
 class BcryptAdapter(Encrypter):

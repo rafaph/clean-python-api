@@ -30,7 +30,22 @@ black:
 	$(BIN)/black --version
 	$(BIN)/black .
 
+.PHONY: black_check
+black_check:
+	$(BIN)/black --version
+	$(BIN)/black --check .
+
 .PHONY: flake8
 flake8:
 	$(BIN)/flake8 --version
 	$(BIN)/flake8 .
+
+.PHONY: isort
+isort:
+	$(BIN)/isort --version
+	$(BIN)/isort .
+
+.PHONY: isort_check
+isort_check:
+	$(BIN)/isort --version
+	$(BIN)/isort --check .
