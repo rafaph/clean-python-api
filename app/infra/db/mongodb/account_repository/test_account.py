@@ -3,9 +3,13 @@ from unittest import TestCase
 from pymongo_inmemory import MongoClient
 
 from app.domain.usecases.add_account import AddAccountModel
+from app.infra.db.mongodb.helpers.mongo_helper import MongoHelper
 
-from ..helpers.mongo_helper import MongoHelper
 from .account import AccountMongoRepository
+
+
+def make_sut() -> AccountMongoRepository:
+    return AccountMongoRepository()
 
 
 class AccountMongoRepositoryTests(TestCase):
@@ -20,7 +24,7 @@ class AccountMongoRepositoryTests(TestCase):
         MongoHelper.disconnect()
 
     def test_returns_account_on_success(self):
-        sut = AccountMongoRepository()
+        sut = make_sut()
         account = sut.add(
             AddAccountModel(
                 name="any_name", email="any_email@mail.com", password="any_password"

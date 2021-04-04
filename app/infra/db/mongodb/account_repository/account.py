@@ -1,8 +1,7 @@
 from app.data.protocols.add_account_repository import AddAccountRepository
 from app.domain.models.account import AccountModel
 from app.domain.usecases.add_account import AddAccountModel
-
-from ..helpers.mongo_helper import MongoHelper
+from app.infra.db.mongodb.helpers.mongo_helper import MongoHelper
 
 
 class AccountMongoRepository(AddAccountRepository):
