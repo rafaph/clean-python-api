@@ -1,5 +1,7 @@
 from unittest import TestCase, mock
 
+import pytest
+
 from app.utils.email_validator_adapter import EmailValidatorAdapter
 
 
@@ -7,6 +9,7 @@ def make_sut() -> EmailValidatorAdapter:
     return EmailValidatorAdapter()
 
 
+@pytest.mark.unit
 class EmailValidatorAdapterTests(TestCase):
     """
     EmailValidator Adapter

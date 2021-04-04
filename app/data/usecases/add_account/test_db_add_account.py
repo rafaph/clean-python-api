@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from unittest import TestCase, mock
 
+import pytest
+
 from .db_add_account import DbAddAccount
 from .db_add_account_protocols import (
     Encrypter,
@@ -51,6 +53,7 @@ def make_sut():
     )
 
 
+@pytest.mark.unit
 class DbAddAccountTests(TestCase):
     """
     DbAddAccount Usecase
