@@ -26,13 +26,16 @@ class BcryptAdapterTests(TestCase):
         cls.gensalt_patcher = mock.patch(
             "app.infra.cryptography.bcrypt_adapter.bcrypt.gensalt"
         )
+        cls.value = "any_value"
+        cls.salt = "salt"
+        cls.hash = "hash"
 
     def setUp(self) -> None:
         self.hashpw_stub = self.hashpw_patcher.start()
-        self.hashpw_stub.return_value = "hash".encode("utf-8")
+        self.hashpw_stub.return_value = self.hash.encode("utf-8")
 
         self.gensalt_stub = self.gensalt_patcher.start()
-        self.gensalt_stub.return_value = "salt".encode("utf-8")
+        self.gensalt_stub.return_value = self.salt.encode("utf-8")
 
     def tearDown(self) -> None:
         self.hashpw_patcher.stop()
@@ -43,8 +46,7 @@ class BcryptAdapterTests(TestCase):
         Should call bcrypt with correct values
         """
         sut = make_sut()
-        value = "any_value"
-        sut.encrypt(value)
+        sut.encrypt(self.value)
         self.gensalt_stub.assert_called_once_with(rounds)
 
     def test_call_hashpw_with_correct_values(self):
@@ -52,10 +54,9 @@ class BcryptAdapterTests(TestCase):
         Should call hashpw with correct values
         """
         sut = make_sut()
-        value = "any_value"
-        sut.encrypt(value)
+        sut.encrypt(self.value)
         self.hashpw_stub.assert_called_once_with(
-            value.encode("utf-8"), "salt".encode("utf-8")
+            self.value.encode("utf-8"), self.salt.encode("utf-8")
         )
 
     def test_returns_hash_on_success(self):
@@ -63,6 +64,25 @@ class BcryptAdapterTests(TestCase):
         Should returns a hash on success
         """
         sut = make_sut()
-        value = "any_value"
-        hashed_value = sut.encrypt(value)
-        self.assertEqual(hashed_value, "hash")
+        hashed_value = sut.encrypt(self.value)
+        self.assertEqual(hashed_value, self.hash)
+
+    def test_throw_if_hashpw_throws(self):
+        """
+        Should throw if hashpw throws
+        """
+        self.hashpw_stub.side_effect = ValueError()
+
+        sut = make_sut()
+        with self.assertRaises(ValueError):
+            sut.encrypt(self.value)
+
+    def test_throw_if_gensalt_throws(self):
+        """
+        Should throw if gensalt throws
+        """
+        self.gensalt_stub.side_effect = TypeError()
+
+        sut = make_sut()
+        with self.assertRaises(TypeError):
+            sut.encrypt(self.value)
