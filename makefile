@@ -49,3 +49,7 @@ isort:
 isort_check:
 	$(BIN)/isort --version
 	$(BIN)/isort --check .
+
+.PHONY: serve
+serve:
+	$(BIN)/uvicorn app.main.server:app --reload
