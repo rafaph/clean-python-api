@@ -34,7 +34,7 @@ repos:
     hooks:
       - id: pytest_staged
         name: pytest staged
-        entry: make test_staged
+        entry: make test
         language: system
         stages:
           - commit
