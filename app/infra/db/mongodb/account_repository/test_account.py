@@ -17,11 +17,17 @@ class AccountMongoRepositoryTests(TestCase):
     Account Mongo Repository
     """
 
-    def setUp(self) -> None:
+    @classmethod
+    def setUpClass(cls) -> None:
         MongoHelper.connect(client_class=MongoClient)
 
-    def tearDown(self) -> None:
+    @classmethod
+    def tearDownClass(cls) -> None:
         MongoHelper.disconnect()
+
+    def setUp(self) -> None:
+        account_collection = MongoHelper.get_collection("accounts")
+        account_collection.delete_many({})
 
     def test_returns_account_on_success(self):
         sut = make_sut()
