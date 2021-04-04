@@ -241,7 +241,7 @@ class SignUpControllerTests(TestCase):
 
     def test_return_500_add_account_throws(self):
         """
-        Should return 500 if AddAcount throws
+        Should return status 500 if AddAcount throws
         """
 
         def add():
