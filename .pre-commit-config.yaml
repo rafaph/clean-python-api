@@ -42,6 +42,7 @@ repos:
         name: pytest full
         entry: make test
         language: system
+        require_serial: true
         types:
           - python
         stages:

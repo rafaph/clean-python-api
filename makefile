@@ -9,9 +9,13 @@ test:
 test_staged:
 	$(BIN)/pytest --picked --suppress-no-test-exit-code
 
-.PHONY: test_watch
+.PHONY: test_watch_unit
 test_watch:
-	$(BIN)/ptw -- --new-first  
+	$(BIN)/ptw -- --new-first -m unit
+
+.PHONY: test_watch_integration
+test_watch_integration:
+	$(BIN)/ptw -- --new-first -m integration
 
 .PHONY: test_coverage
 test_coverage:

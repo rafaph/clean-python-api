@@ -1,5 +1,6 @@
 from unittest import TestCase
 
+import pytest
 from pymongo_inmemory import MongoClient
 
 from app.domain.usecases.add_account import AddAccountModel
@@ -12,6 +13,7 @@ def make_sut() -> AccountMongoRepository:
     return AccountMongoRepository()
 
 
+@pytest.mark.unit
 class AccountMongoRepositoryTests(TestCase):
     """
     Account Mongo Repository

@@ -25,6 +25,7 @@ pytest-watch = "^4.2.0"
 pytest-picked = "^0.4.6"
 pytest-custom-exit-code = "^0.3.0"
 pymongo-inmemory = "^0.2.0"
+requests = "^2.25.1"
 
 [tool.black]
 target-version = ["py38"]
@@ -41,6 +42,7 @@ line_length = 88
 testpaths = ["app"]
 addopts = "--pspec -rx --tb=short"
 markers = ["integration", "unit"]
+filterwarnings = "ignore::DeprecationWarning:starlette.*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
