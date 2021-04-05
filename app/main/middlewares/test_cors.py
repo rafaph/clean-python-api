@@ -3,7 +3,7 @@ from unittest import TestCase
 import pytest
 from fastapi.testclient import TestClient
 
-from app.main.config import app
+from app.main.config import make_app
 
 
 @pytest.mark.integration
@@ -14,13 +14,14 @@ class CorsMiddlewareTests(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.client = TestClient(app)
+        cls.app = make_app()
+        cls.client = TestClient(cls.app)
 
     def test_enable_cors(self):
         """
         Should enable CORS
         """
-        app.get("/test_cors")(lambda: {})
+        self.app.get("/test_cors")(lambda: {})
 
         response = self.client.get("/test_cors")
         self.assertEqual(response.status_code, 200)

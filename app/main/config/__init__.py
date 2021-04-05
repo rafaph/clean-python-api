@@ -1,3 +1,3 @@
-from .app import app
+from .app import make_app
 
-__all__ = ["app"]
+__all__ = ["make_app"]
