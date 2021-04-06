@@ -1,4 +1,5 @@
 [run]
 omit =
     app/**/test_*
+    app/**/*_test
     app/main/**
