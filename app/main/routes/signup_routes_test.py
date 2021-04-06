@@ -35,12 +35,10 @@ class SignUpRoutesTests(TestCase):
         response = self.client.post(
             "/api/signup",
             json={
-                "data": {
-                    "name": "Raphael",
-                    "email": "rafaphcastro@gmail.com",
-                    "password": "123",
-                    "passwordConfirmation": "123",
-                }
+                "name": "Raphael",
+                "email": "rafaphcastro@gmail.com",
+                "password": "123",
+                "passwordConfirmation": "123",
             },
         )
         self.assertEqual(response.status_code, 200)

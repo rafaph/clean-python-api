@@ -1,9 +1,8 @@
-from typing import Any
+from fastapi import APIRouter
 
-from fastapi import APIRouter, Body
+from app.main.adapters import adapt_route
+from app.main.factories import make_sign_up_controller
 
 
 def register(router: APIRouter) -> None:
-    @router.post("/signup")
-    def signup(data: Any = Body(...)):
-        return {"ok": "ok"}
+    router.post("/signup")(adapt_route(make_sign_up_controller()))
