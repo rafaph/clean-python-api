@@ -1,2 +1,4 @@
 [run]
-omit = app/**/test_*
+omit =
+    app/**/test_*
+    app/main/**

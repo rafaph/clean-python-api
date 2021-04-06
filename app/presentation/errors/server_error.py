@@ -6,4 +6,4 @@ class ServerError(Exception):
     def __eq__(self, other) -> bool:
         if isinstance(other, self.__class__):
             return other.name == self.name
-        return False
+        return False  # pragma: no cover

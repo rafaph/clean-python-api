@@ -6,4 +6,4 @@ class MissingParamError(Exception):
     def __eq__(self, other) -> bool:
         if isinstance(other, self.__class__):
             return other.param_name == self.param_name
-        return False
+        return False  # pragma: no cover
