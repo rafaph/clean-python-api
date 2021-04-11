@@ -9,6 +9,10 @@ test:
 test_staged:
 	$(BIN)/pytest --picked --suppress-no-test-exit-code
 
+.PHONY: test_watch_staged
+test_watch_staged:
+	$(BIN)/ptw -- --picked --suppress-no-test-exit-code
+
 .PHONY: test_watch_unit
 test_watch:
 	$(BIN)/ptw -- --new-first -m unit
