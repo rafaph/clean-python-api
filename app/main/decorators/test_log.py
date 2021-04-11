@@ -35,7 +35,8 @@ class LogControllerDecoratorTests(TestCase):
     LogControllerDecorator
     """
 
-    def test_call_controller_handle(self):
+    @staticmethod
+    def test_call_controller_handle():
         """
         Should call controller handle
         """
