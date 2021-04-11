@@ -38,9 +38,9 @@ repos:
           - commit
   - repo: local
     hooks:
-      - id: pytest_full
-        name: pytest full
-        entry: make test
+      - id: pytest_staged
+        name: pytest staged
+        entry: make test_staged
         language: system
         require_serial: true
         types:
