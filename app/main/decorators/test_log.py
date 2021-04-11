@@ -48,3 +48,15 @@ class LogControllerDecoratorTests(TestCase):
         with mock.patch.object(controller_stub, "handle") as handle_spy:
             sut.handle(http_request)
             handle_spy.assert_called_once_with(http_request)
+
+    def test_return_the_same_controller_result(self):
+        """
+        Should return the same controller result
+        """
+        sut = make_sut().sut
+        http_request = HttpRequest()
+        http_response = sut.handle(http_request)
+
+        self.assertEqual(
+            http_response, HttpResponse(status=HTTPStatus.NOT_FOUND, body=None)
+        )
