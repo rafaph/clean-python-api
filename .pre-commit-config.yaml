@@ -47,4 +47,14 @@ repos:
           - python
         stages:
           - commit
+  - repo: local
+    hooks:
+      - id: pytest_coverage
+        name: pytest coverage
+        entry: make test_coverage
+        language: system
+        require_serial: true
+        types:
+          - python
+        stages:
           - push
