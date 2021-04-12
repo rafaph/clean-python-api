@@ -188,7 +188,11 @@ class SignUpControllerTests(TestCase):
             sut.handle(http_request)
             spy_is_valid.assert_called_with(http_request.body["email"])
 
-    def test_return_500_email_validator_throws(self):
+    @mock.patch(
+        "app.presentation.controllers.signup.controller.traceback.format_exc",
+        return_value=None,
+    )
+    def test_return_500_email_validator_throws(self, *args):
         """
         Should return status 500 if EmailValidator throws
         """
@@ -240,7 +244,11 @@ class SignUpControllerTests(TestCase):
                 )
             )
 
-    def test_return_500_add_account_throws(self):
+    @mock.patch(
+        "app.presentation.controllers.signup.controller.traceback.format_exc",
+        return_value=None,
+    )
+    def test_return_500_add_account_throws(self, *args):
         """
         Should return status 500 if AddAcount throws
         """

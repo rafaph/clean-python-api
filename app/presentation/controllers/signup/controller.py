@@ -1,3 +1,5 @@
+import traceback
+
 from app.presentation.controllers.signup.protocols import (
     AddAccount,
     AddAccountModel,
@@ -43,6 +45,6 @@ class SignUpController(Controller):
                 )
             )
             return ok(data=account)
-        except Exception as error:
-            print(error)
-            return server_error()
+        except Exception:
+            stack = traceback.format_exc()
+            return server_error(stack)
