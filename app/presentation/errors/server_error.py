@@ -3,7 +3,7 @@ from typing import Optional
 
 class ServerError(Exception):
     def __init__(self, stack: Optional[str] = None):
-        super().__init__("Internal server error")
+        super().__init__("Internal Server Error")
         self.name = "ServerError"
         self.stack = stack
 

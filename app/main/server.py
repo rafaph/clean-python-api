@@ -1,4 +1,4 @@
-import os
+from decouple import config
 
 from app.infra.db.mongodb.helpers.mongo_helper import MongoHelper
 from app.main.config import make_app
@@ -8,7 +8,7 @@ app = make_app()
 
 @app.on_event("startup")
 def startup():
-    MongoHelper.connect(url=os.environ["MONGO_URL"])
+    MongoHelper.connect(url=config("MONGO_URL"))
 
 
 @app.on_event("shutdown")
