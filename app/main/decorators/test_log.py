@@ -20,7 +20,7 @@ def make_controller() -> Controller:
 
 def make_log_error_repository() -> LogErrorRepository:
     class LogErrorRepositoryStub(LogErrorRepository):
-        def log(self, stack: str) -> None:
+        def log_error(self, stack: str) -> None:
             pass
 
     return LogErrorRepositoryStub()
@@ -95,6 +95,6 @@ returns a server error
 
         with mock.patch.object(
             controller_stub, "handle", return_value=server_error(stack)
-        ), mock.patch.object(log_error_repository_stub, "log") as log_spy:
+        ), mock.patch.object(log_error_repository_stub, "log_error") as log_spy:
             sut.handle(http_request)
             log_spy.assert_called_once_with(stack)

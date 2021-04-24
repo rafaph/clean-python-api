@@ -14,5 +14,5 @@ class LogControllerDecorator(Controller):
     def handle(self, http_request: HttpRequest) -> HttpResponse:
         http_response = self._controller.handle(http_request)
         if http_response.status == HTTPStatus.INTERNAL_SERVER_ERROR:
-            self._log_error_repository.log(http_response.body.stack)
+            self._log_error_repository.log_error(http_response.body.stack)
         return http_response
