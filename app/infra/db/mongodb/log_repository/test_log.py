@@ -7,6 +7,10 @@ from app.infra.db.mongodb.helpers.mongo_helper import MongoHelper
 from app.infra.db.mongodb.log_repository.log import LogErrorMongoRepository
 
 
+def make_sut() -> LogErrorMongoRepository:
+    return LogErrorMongoRepository()
+
+
 @pytest.mark.unit
 class LogMongoRepositoryTests(unittest.TestCase):
     """
@@ -29,7 +33,7 @@ class LogMongoRepositoryTests(unittest.TestCase):
         """
         Should create an error log on success
         """
-        sut = LogErrorMongoRepository()
+        sut = make_sut()
         sut.log_error("any_error")
         count = self.errors_collection.count_documents({})
         self.assertEqual(count, 1)
